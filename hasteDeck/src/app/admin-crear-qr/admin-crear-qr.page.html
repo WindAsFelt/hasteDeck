@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar mode="ios">
+
+      <div class="top-btn-left" routerLink="/opciones">     
+        <i class="fa-solid fa-gear"></i> 
+      </div>
+
+
+    <ion-title class="nombre">
+      Bienvenido {{nombreX}}
+    </ion-title>
+
+    <div class="top-btn-right" routerLink="/perfil">     
+        <i class="fa-solid fa-circle-user"></i> 
+    </div>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+    <ion-button class="btn-centro">Tus eventos</ion-button> 
+    <br>
+    <br>
+    <br>
+    <br>
+    <ion-button class="btn-centro">Crear QR <br>[holder]</ion-button> 
+  </div>
+  
+
+</ion-content>

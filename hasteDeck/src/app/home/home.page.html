@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar mode="ios">
+
+      <div class="top-btn-left" routerLink="/opciones">     
+        <i class="fa-solid fa-gear"></i> 
+      </div>
+
+
+    <ion-title class="nombre">
+      Bienvenido {{nombreX}}
+    </ion-title>
+
+    <div class="top-btn-right" routerLink="/perfil">     
+        <i class="fa-solid fa-circle-user"></i> 
+    </div>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+    <ion-button class="btn-centro">Explorar eventos</ion-button> 
+    <br>
+    <ion-button class="btn-centro">Eventos inscritos</ion-button> 
+
+    <ion-button routerLink="/admin-crear-qr" > botón chistoso <br> a página admin</ion-button>
+  </div>
+  
+
+</ion-content>
