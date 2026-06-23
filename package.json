@@ -1,6 +1,15 @@
 {
   "devDependencies": {
-    "@angular/cli": "19.2.27",
+    "@angular/cli": "^22.0.3",
     "@types/jasmine": "^6.0.0"
+  },
+  "dependencies": {
+    "angularx-qrcode": "^21.0.5",
+    "firebase": "^12.15.0",
+    "qrcode": "^1.5.4"
+  },
+  "allowScripts": {
+    "@firebase/util@1.15.1": true,
+    "protobufjs@7.6.4": true
   }
 }

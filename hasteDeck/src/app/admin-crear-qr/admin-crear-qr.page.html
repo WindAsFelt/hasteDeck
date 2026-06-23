@@ -22,6 +22,33 @@
     <ion-button class="btn-centro">Tus eventos</ion-button> 
     <br>
     <br>
+      <div>
+      <ion-input [(ngModel)]="getName" label="Nombre de usuario" label-placement="floating" fill="outline"></ion-input>
+      <br>
+      <ion-input [(ngModel)]="getCorr" label="Su Correo" label-placement="floating" fill="outline"></ion-input>
+      <br>
+      <ion-button (click)="guardarBD()">Guardar en BD</ion-button>
+      <br>
+      
+      <div>
+        <ion-button (click)="popup = true" (click)="leerID()" >Mostrar ID y QR</ion-button>
+          
+
+        @if (popup) {
+          <div style="margin-top: 20px; padding: 15px; background-color: var(--fondo2); color: var(--claro-lima); border-radius: 5px;">
+            <h3>¡Operación completada!</h3>
+              @if (qrCodeUrl) {
+                  <div style="margin-top: 15px; text-align: center;">
+                    <p><strong>ID Extraído listo para usar:</strong> {{ id }}</p>
+                    
+                    <img [src]="qrCodeUrl" alt="Código QR del usuario" style="border: 2px solid #fff; border-radius: 10px;" />
+                    
+                  </div>
+}
+            <ion-button (click)="popup = false">Confirmar</ion-button>
+            </div>}
+        </div>
+      </div>
     <br>
     <br>
     <ion-button class="btn-centro">Crear QR <br>[holder]</ion-button> 

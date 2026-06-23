@@ -2,9 +2,37 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+
+// Initialize Firebase
+
 export const environment = {
-  production: false
+  production: false,
+
+  firebaseConfig : {
+  apiKey: "AIzaSyBYmpfklWAhxDr8gbt_RpyzknZ0sBKUMyA",
+  authDomain: "hastedeck.firebaseapp.com",
+  projectId: "hastedeck",
+  storageBucket: "hastedeck.firebasestorage.app",
+  messagingSenderId: "1004956283875",
+  appId: "1:1004956283875:web:1c73d41c4a96ab5cff26d6",
+  measurementId: "G-D09S1K8Q70"
+  
+  }
+  
 };
+
+
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

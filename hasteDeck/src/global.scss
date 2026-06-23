@@ -40,6 +40,9 @@
 ion-content {
   --background: var(--fondo1);
 }
+#div {
+  color: var(--menos-claro);
+}
 
 ion-toolbar {
   --background: var(--fondo2);
@@ -61,11 +64,20 @@ ion-card {
 
 
 ion-card-title {
-  color: var(--verde-lima);
+  color: var(--claro-lima);
   font-weight: bold;
   color: var(--menos-claro);
 }
 
 ion-card-subtitle {
-  color: var(--verde-lima); 
+  color: var(--claro-lima); 
+}
+
+ion-input {
+  color: var(--menos-claro) !important;
+  --ion-color-primary: var(--menos-claro) !important;
+  background-color: var(--fondo2);
+  --placeholder-color: var(--fondo2); 
+  --border-color: var(--menos-claro) !important; 
+
 }
