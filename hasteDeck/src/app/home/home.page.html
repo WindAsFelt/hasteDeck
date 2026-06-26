@@ -10,7 +10,7 @@
       Bienvenido {{nombreX}}
     </ion-title>
 
-    <div class="top-btn-right" routerLink="/perfil">     
+    <div class="top-btn-right" routerLink="/crear-perfil">     
         <i class="fa-solid fa-circle-user"></i> 
     </div>
 
@@ -19,11 +19,13 @@
 
 <ion-content [fullscreen]="true">
   <div class="contenido">
-    <ion-button class="btn-centro">Explorar eventos</ion-button> 
+    <ion-button class="btn-centro" routerLink="/buscar-eventos">Explorar eventos</ion-button> 
     <br>
     <ion-button class="btn-centro">Eventos inscritos</ion-button> 
-
-    <ion-button routerLink="/admin-crear-qr" > botón chistoso <br> a página admin</ion-button>
+    <br>
+    <ion-button routerLink="/admin-crear-qr" >Crear QR (admin)</ion-button>
+    <br>
+    <ion-button class="btn-centro" routerLink="/crear-eventos">Crear eventos (admin)</ion-button> 
   </div>
   
 

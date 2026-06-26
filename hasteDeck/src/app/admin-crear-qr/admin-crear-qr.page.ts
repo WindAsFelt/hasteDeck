@@ -1,79 +1,64 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, } from '@ionic/angular/standalone';
-import { collection, addDoc,query, where, getDocs } from 'firebase/firestore';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonToast, } from '@ionic/angular/standalone';
+import { HttpClient } from '@angular/common/http';
+import { GlobalData } from '../services/global-data';
+import { RouterLink } from '@angular/router';
 import { db } from '../../main';
-import * as QRCode from 'qrcode';
-
 @Component({
   selector: 'app-admin-crear-qr',
   templateUrl: './admin-crear-qr.page.html',
   styleUrls: ['./admin-crear-qr.page.scss'],
   standalone: true,
-  imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonInput]
+  imports: [RouterLink, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonInput, IonToast]
 })
 export class AdminCrearQrPage implements OnInit {
   nombreX: string = "RX-78-2";
   alertButtons = ['Action'];
   popup: boolean = false;
-
-  constructor() { } 
-  ngOnInit() {
-  }
-
+  urlCodigoQR: string | null = null;
   getName: string = ""; 
   getCorr: string = ""; 
   id: string="";
-  qrCodeUrl: string = "";
-
   
+  
+  constructor(
+    private http: HttpClient,
+    private globalData: GlobalData) {}
+  ngOnInit() {
+  }
 
+  crearQR() {
+    const idLocal = this.globalData.ponerId(); 
 
-  async guardarBD() {
-    try {
-
-      const bloque1 = Math.floor(1000 + Math.random() * 9000);
-      const bloque2 = Math.floor(1000 + Math.random() * 9000);
-      const randID = `${bloque1}-${bloque2}`;
-      const docRef = await addDoc(collection(db, "usuario"), {
-
-        correo: this.getCorr,
-        nmbUs: this.getName,
-        id: randID,
-        rol: false
-      });
-      
-      console.log("¡Éxito! Datos guardados con el ID: ", randID);
-      
-    } catch (error) {
-      console.error("Hubo un error al guardar: ", error);
+    if (idLocal) {
+      this.id = idLocal;
+      console.log("ID recuperado desde GlobalData:", this.id);
+      this.contactarQR(this.id);
+    } else {
+      console.error("No se encontró ningún ID en GlobalData.");
     }
   }
 
-  async leerID() {
-    try {
-      const q = query(collection(db, "usuario"), where("correo", "==", this.getCorr));
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-      
-        for (const doc of querySnapshot.docs) {
-          const datosUsuario = doc.data();
-          this.id = datosUsuario['id'];
-          
-          this.qrCodeUrl = await QRCode.toDataURL(this.id, { 
-            width: 220,
-            margin: 1
-          });
-          
-          console.log("¡ID recuperado y QR generado en memoria!");
-        }
-      } else {
-        console.log("No se encontró ningún usuario:");
+  contactarQR(id: string) {
+    if (!id) {
+      console.error("No se puede generar el QR porque el ID está vacío.");
+      return;
+    }
+
+    const linkApi = `https://WindAndLight.pythonanywhere.com/crearQR/${id}`;
+
+    this.http.get(linkApi, { responseType: 'blob' }).subscribe({
+      next: (archivoImagen) => {
+        this.urlCodigoQR = URL.createObjectURL(archivoImagen);
+        console.log("Imagen del QR cargada exitosamente.");
+      },
+      error: (err) => {
+        console.error("Error al conectar con la API de PythonAnywhere:", err);
       }
-    } catch (error) {
-      console.error("Error al intentar leer o generar QR:", error);
-    }
+    });
   }
+
 
 }

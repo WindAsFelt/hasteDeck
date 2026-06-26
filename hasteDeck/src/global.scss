@@ -39,10 +39,10 @@
 
 ion-content {
   --background: var(--fondo1);
+  --ion-text-color: var(--menos-claro) !important;
 }
-#div {
-  color: var(--menos-claro);
-}
+
+
 
 ion-toolbar {
   --background: var(--fondo2);
@@ -80,4 +80,17 @@ ion-input {
   --placeholder-color: var(--fondo2); 
   --border-color: var(--menos-claro) !important; 
 
+}
+
+ion-searchbar{
+  --background: var(--menos-claro) !important;
+  color: var(--fondo1);
+}
+
+ion-checkbox{
+  --checkbox-background: var(--fondo2);
+  --border-color: var(--menos-claro);
+  --checkbox-background-checked: var(--claro-lima);
+  --border-color-checked: var(--menos-claro);
+  --checkmark-color:var(--menos-claro);
 }

@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="top-btn-left" routerLink="/home">     
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+
+    <ion-title>Crear un evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="contenido">
+      <div>
+        <br>
+        <ion-input [(ngModel)]="nombre_evento"  label="Nombre Evento" label-placement="floating" fill="outline"></ion-input>
+        <br>
+        
+        <ion-input [(ngModel)]="integrantes" type=number label="Integrantes" label-placement="floating" fill="outline"></ion-input>
+        <br>
+        <ion-input [(ngModel)]="ubi"  label="Ubicación" label-placement="floating" fill="outline"></ion-input>
+        <ion-list>
+          <ion-item class="ionitem">
+            <ion-select [(ngModel)]="categoria" interface="popover" placeholder="Seleccione franquicia." >
+              <ion-select-option value="Pokémon">Pokémon</ion-select-option>
+              <ion-select-option value="Gundam">Gundam</ion-select-option>
+              <ion-select-option value="Magic">Magic</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <br>
+        <div class="fechas" >
+        <ion-input [(ngModel)]="fecha" class="label-fecha" label="DD/MM/AAAA" label-placement="floating" fill="outline"></ion-input>
+        <ion-input [(ngModel)]="hora" class="label-fecha" label="23:59" label-placement="floating" fill="outline"></ion-input>
+        </div>
+        <br>
+        <ion-input [(ngModel)]="descripcion"  label="Descripción" label-placement="floating" fill="outline"></ion-input>
+        <br>
+        <ion-button id="open-toast" (click)="crearEventoBD()">Confirmar</ion-button>
+        <br>
+        <ion-toast trigger="open-toast" message="Evento creado exitosamente" [duration]="5000"></ion-toast>
+        <br>
+
+      </div>
+    </div>
+</ion-content>

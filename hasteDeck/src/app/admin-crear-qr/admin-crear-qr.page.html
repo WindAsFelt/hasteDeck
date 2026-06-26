@@ -1,58 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar mode="ios">
-
-      <div class="top-btn-left" routerLink="/opciones">     
-        <i class="fa-solid fa-gear"></i> 
-      </div>
-
-
-    <ion-title class="nombre">
-      Bienvenido {{nombreX}}
-    </ion-title>
-
-    <div class="top-btn-right" routerLink="/perfil">     
-        <i class="fa-solid fa-circle-user"></i> 
+    <div class="top-btn-left" routerLink="/home">     
+      <i class="fa-solid fa-arrow-left"></i>
     </div>
-
+    
+    <ion-title class="nombre">
+      Crear QR
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="contenido">
-    <ion-button class="btn-centro">Tus eventos</ion-button> 
-    <br>
-    <br>
-      <div>
-      <ion-input [(ngModel)]="getName" label="Nombre de usuario" label-placement="floating" fill="outline"></ion-input>
-      <br>
-      <ion-input [(ngModel)]="getCorr" label="Su Correo" label-placement="floating" fill="outline"></ion-input>
-      <br>
-      <ion-button (click)="guardarBD()">Guardar en BD</ion-button>
-      <br>
       
-      <div>
-        <ion-button (click)="popup = true" (click)="leerID()" >Mostrar ID y QR</ion-button>
-          
+    <div>
+      <ion-button (click)="popup = true; crearQR()">Crea tu QR</ion-button>
+        
+      @if (popup) {
+        <div style="margin-top: 20px; padding: 15px; background-color: var(--fondo2); color: var(--claro-lima); border-radius: 5px;">
+          <br>
+          <ion-button (click)="contactarQR(id)">¡Comienza!</ion-button>
+          <br>
 
-        @if (popup) {
-          <div style="margin-top: 20px; padding: 15px; background-color: var(--fondo2); color: var(--claro-lima); border-radius: 5px;">
-            <h3>¡Operación completada!</h3>
-              @if (qrCodeUrl) {
-                  <div style="margin-top: 15px; text-align: center;">
-                    <p><strong>ID Extraído listo para usar:</strong> {{ id }}</p>
-                    
-                    <img [src]="qrCodeUrl" alt="Código QR del usuario" style="border: 2px solid #fff; border-radius: 10px;" />
-                    
-                  </div>
-}
-            <ion-button (click)="popup = false">Confirmar</ion-button>
-            </div>}
-        </div>
-      </div>
-    <br>
-    <br>
-    <ion-button class="btn-centro">Crear QR <br>[holder]</ion-button> 
-  </div>
+          <div>
+            <img [src]="urlCodigoQR" alt="¿Aún no tienes un qr? ¡créalo!" />
+          </div>
   
+          <br>
+          <ion-button (click)="popup = false">Ciérreme</ion-button>
+        </div>
+      }
+    </div>
 
+  </div>
 </ion-content>

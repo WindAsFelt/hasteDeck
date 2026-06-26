@@ -1,5 +1,7 @@
 {
   "name": "hasteDeck",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
