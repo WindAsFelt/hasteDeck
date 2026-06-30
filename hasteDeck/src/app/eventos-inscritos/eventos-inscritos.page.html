@@ -1,0 +1,90 @@
+<ion-header [translucent]="true">
+<ion-toolbar mode="ios">
+    <div class="top-btn-left" routerLink="/home">     
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+    <ion-title>Mis Eventos Inscritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="cartas">
+    @for (evento of listaInscritos; track evento.id) {
+      <ion-card style="margin-bottom: 15px;" (click)="abrirModal(evento)">
+
+        @switch (evento.categoria) {
+          @case ('Pokémon') {
+            <img alt="Pokémon Banner" src="https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/series/sv_series/sv08/sv08-banner.png" />
+          }
+          @case ('Gundam') {
+            <img alt="Gundam Banner" src="https://www.gamescape.com/cdn/shop/collections/gundam-card-game-collection-banner.webp?v=1756590352&width=750" />
+          }
+          @case ('Magic') {
+            <img alt="Magic Banner" src="https://i.pinimg.com/736x/44/2a/e4/442ae429735f828ff21cfd307c44c36e.jpg" />
+          }
+          @default {
+            <img alt="N/A" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+          }
+        }
+        
+        <ion-card-header>
+          <ion-card-title>{{ evento.nombre }}</ion-card-title>
+          
+          <ion-card-subtitle>
+            Franquicia: {{ evento.categoria }} | Inscrito
+          </ion-card-subtitle>
+          
+          <ion-card-subtitle>
+            Fecha: {{ evento.fechaTimestamp?.toDate() | date: 'dd/MM/yyyy - HH:mm' }} hrs
+            <br>
+            Ubicación: {{ evento.ubi }}
+          </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{ evento.descripcion }}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()">
+        @if (eventoSeleccionado) {
+          <ion-header>
+            <ion-toolbar >
+              <div class="top-btn-left" (click)="cerrarModal()">     
+                <i class="fa-solid fa-arrow-left"></i>
+              </div>
+              <ion-title> {{ eventoSeleccionado?.nombre }}</ion-title>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content class="ion-padding">
+          <h4>Descripción</h4>
+          {{ eventoSeleccionado?.descripcion }} <br> <br>
+          integrantes:  {{largoLista}} / {{ eventoSeleccionado.cantidad}}
+          <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--claro-lima);" />
+          <div>
+            <div>
+              Tiempo restante para el evento:
+              <br>
+              <span style="font-weight: bold; color: var(--menos-claro); text-align: center;">
+                <br>
+                [ {{ tiempoRestante }} ]
+              </span>
+            </div>
+          </div>
+          <div style="margin-top: 40px;">
+            <ion-button expand="block" color="success">Unirse al Evento</ion-button>
+            <br>
+            <ion-button (click)="cerrarModal()"  (click)="salirEvento(evento)" expand="block" color="danger">Salir de evento</ion-button>
+          </div>
+        </ion-content>
+      }
+  </ion-modal>
+
+    } @empty {
+      <div style="text-align: center; padding: 40px; color: var(--menos-claro);">
+        <p>Aún no te has inscrito en ningún evento.</p>
+      </div>
+    }
+  </div>
+</ion-content>

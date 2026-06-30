@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar mode="ios">
-    <div class="top-btn-left" routerLink="/home">     
+    <div class="top-btn-left" routerLink="/crear-perfil">     
       <i class="fa-solid fa-arrow-left"></i>
     </div>
     
@@ -14,25 +14,18 @@
   <div class="contenido">
     <br>
       <div>
-        <ion-input [(ngModel)]="getName" label="Nombre de usuario" label-placement="floating" fill="outline"></ion-input>
-        <br>
         <ion-input [(ngModel)]="getCorr" label="Correo electrónico" label-placement="floating" fill="outline"></ion-input>
         <br>
         <ion-input [(ngModel)]="getPassword" label="Introduzca su contraseña" label-placement="floating" fill="outline"></ion-input>
+
         <br>
-        <ion-checkbox [(ngModel)]="getFlag" labelPlacement="end">Soy dueño de un local.</ion-checkbox>
-        <br>
-        <ion-button  id="open-toast" (click)="registrarUsuario()">Registrar cuenta</ion-button>
+        <ion-button  id="open-toast" routerLink="/home" (click)="login()">Iniciar sesión</ion-button>
         <ion-toast trigger="open-toast" message="Usuario creado exitosamente" [duration]="5000"></ion-toast>
         <br>
-        
+        <br>
+        <br>
+        <ion-button routerLink="/home" (click)="logout()">Cerrar perfil..</ion-button>
       </div>
-      <div>
-        <br>
-        ¿Ya tienes un perfil?
-        <br>
-        <ion-button routerLink="/login">Ingresar</ion-button>
-        </div>
   </div>
   
 

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, IonButton, IonInput, IonToast, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCard, IonModal, IonButtons } from '@ionic/angular/standalone';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { GlobalData } from '../services/global-data';
 import { db } from '../../main'; 
 @Component({
   selector: 'app-buscar-eventos',
@@ -13,7 +14,7 @@ import { db } from '../../main';
 })
 export class BuscarEventosPage implements OnInit {
 
-  constructor() { }
+  constructor( private globalData: GlobalData ) { }
   isModalOpen: boolean = false;
   eventoSeleccionado: any = null;
   listaEventos: any[] = [];
@@ -57,6 +58,31 @@ async obtenerEventos() {
     this.isModalOpen = false;
     this.eventoSeleccionado = null;  
     this.largoLista = 0; 
+  }
+
+async unirseAlEvento() {
+
+    try {
+      const eventoRef = doc(db, 'evento', this.eventoSeleccionado.id);
+      const correoAnnadido = this.globalData.globalCorr;
+      await updateDoc(eventoRef, {
+      
+      asistentes: arrayUnion(correoAnnadido.trim())  });
+      console.log('¡Te has unido con éxito al evento!', correoAnnadido);
+
+      if (!this.eventoSeleccionado.vacantes) {
+        this.eventoSeleccionado.vacantes = [];
+      }
+      
+      if (!this.eventoSeleccionado.vacantes.includes(this.globalData.globalCorr)) {
+        this.eventoSeleccionado.vacantes.push(this.globalData.globalCorr);
+        this.largoLista = this.eventoSeleccionado.vacantes.length;
+      }
+      this.cerrarModal();
+
+    } catch (error) {
+      console.error('Error al unirse al evento en Firestore:', error);
+    }
   }
 
 }

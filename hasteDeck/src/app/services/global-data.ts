@@ -1,23 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonToast, IonButton } from '@ionic/angular/standalone';
-import { collection, addDoc,query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../main';
-
+import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GlobalData {
-  private globalId = 'Id_usuario'; 
-  private globalName = 'nmbUsuario'
+  globalId = ''; 
+  globalName: string = '';
+  globalCorr: string = '';
+
 
   constructor() { }
 
-  guardarId(id: string) {
-    localStorage.setItem(this.globalId, id)
+  async guardarDatos(id: string, usuario: string, correo: string) {
+    this.globalId = id;
+    this.globalName = usuario;
+    this.globalCorr = correo;
+    await Preferences.set({key: 'datosUsuario', value: JSON.stringify({ id, usuario, correo }) });
+  }
+
+  async cargarDatos() {
+    const { value } = await Preferences.get({ key: 'datosUsuario' });
+    if (value) {
+      const datos = JSON.parse(value);
+      this.globalId = datos.id;
+      this.globalName = datos.usuario;
+      this.globalCorr = datos.correo;
+    }
+  }
+  
+  async logoutDatos(){
+    this.globalId = '';
+    this.globalName = '';
+    this.globalCorr = '';
+    await Preferences.remove({ key: 'datosUsuario' });
   }
   ponerId(): string | null {
     return localStorage.getItem(this.globalId);

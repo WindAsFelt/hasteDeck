@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonSelect, IonSelectOption, IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonToast, IonButton, IonCheckbox, IonAccordion, IonItem, IonLabel, IonAccordionGroup, IonList, IonModal, IonDatetimeButton, IonDatetime } from '@ionic/angular/standalone';
 import { collection, addDoc,query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { GlobalData } from '../services/global-data';
+import { NavController } from '@ionic/angular/standalone'; // <-- Importar
 import { RouterLink } from '@angular/router';
 import { db } from '../../main';
 
@@ -27,12 +28,17 @@ export class CrearEventosPage implements OnInit {
   descripcion: string = "";
   ubi: string = "";
 
-  constructor(private globalData: GlobalData) { }
+  constructor(
+    private globalData: GlobalData,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
   }
   
-
+  backwards() {
+    this.navCtrl.back();
+  }
   async crearEventoBD() {
     if (!this.nombre_evento || !this.fecha || !this.hora) {
       console.error("Faltan datos obligatorios para crear el evento.");
@@ -48,7 +54,7 @@ export class CrearEventosPage implements OnInit {
       const fechaCompletaJS = new Date(anio, mes, dia, horas, minutos);
       const timestampFirestore = Timestamp.fromDate(fechaCompletaJS);
 
-      const idLocal = this.globalData.ponerId();
+      const idLocal = this.globalData.globalId;
 
       const docRef = await addDoc(collection(db, "evento"), {
         id: idLocal,

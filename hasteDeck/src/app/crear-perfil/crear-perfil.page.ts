@@ -24,6 +24,7 @@ export class CrearPerfilPage implements OnInit {
   id: string="";
   getFlag: boolean = false;
   rol: boolean = false;
+  idTienda: string = "";
   constructor(
   private globalData: GlobalData,
   private supabaseService: SupabaseService)
@@ -32,7 +33,11 @@ export class CrearPerfilPage implements OnInit {
   ngOnInit() {
   }
 
-
+  async logout() {
+    this.globalData.logoutDatos()
+    this.supabaseService.logout();
+    console.log("Se supone que se cerró todo...", this.globalData.globalId, "<---")
+  }
 
   async registrarUsuario() {
     if (!this.getCorr || !this.getPassword) {
@@ -59,25 +64,24 @@ export class CrearPerfilPage implements OnInit {
   async guardarBD() {
     try {
       let randID = "";
+      this.rol = this.getFlag;
       if (this.getFlag === true) {
       const bloque1 = Math.floor(1000 + Math.random() * 9000);
       const bloque2 = Math.floor(1000 + Math.random() * 9000);
       randID = `${bloque1}-${bloque2}`;
-      this.globalData.guardarId(randID);
-        console.log("Es cliente, no se genera ID de tienda.");
       } else {
-        console.log("Es cliente, no se genera ID de tienda.");
-      }
-      this.rol = this.getFlag;
 
+        console.log("Nothing ever happens");
+      } 
       const docRef = await addDoc(collection(db, "usuario"), {
         correo: this.getCorr,
         nmbUs: this.getName,
         id: randID,
-        rol: this.rol
+        rol: this.rol,
+        idTienda: this.idTienda
       });
       
-      this.globalData.guardarId(randID);
+      this.globalData.guardarDatos(randID, this.getName, this.getCorr);
       console.log("ID generado correctamente en Firebase: ", randID);
     } catch (error) {
       console.error("Hubo un error al guardar en Firebase: ", error);

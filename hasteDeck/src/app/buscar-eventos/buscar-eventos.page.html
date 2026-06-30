@@ -51,31 +51,31 @@
       </div>
   
       <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()">
-    @if (eventoSeleccionado) {
-        <ion-header>
-          <ion-toolbar >
-            <ion-title> {{ eventoSeleccionado.nombre }}</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="cerrarModal()">Cerrar</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
+        @if (eventoSeleccionado) {
+          <ion-header>
+            <ion-toolbar >
+              <ion-title> {{ eventoSeleccionado?.nombre }}</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
 
-        <ion-content class="ion-padding">
-        <h4>Descripción</h4>
-        {{ eventoSeleccionado.descripcion }} <br> <br>
-        integrantes:  {{largoLista}} / {{ eventoSeleccionado.cantidad}}
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--claro-lima);" />
+          <ion-content class="ion-padding">
+          <h4>Descripción</h4>
+          {{ eventoSeleccionado?.descripcion }} <br> <br>
+          integrantes:  {{largoLista}} / {{ eventoSeleccionado.cantidad}}
+          <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--claro-lima);" />
 
         
 
-        <div style="margin-top: 40px;">
-          <ion-button expand="block" color="success">Unirse al Evento</ion-button>
-          <br>
-          <ion-button (click)="cerrarModal()" expand="block" color="danger">Cancelar</ion-button>
-        </div>
-      </ion-content>
-    }
+          <div style="margin-top: 40px;">
+            <ion-button expand="block" color="success"(click)="unirseAlEvento()">Unirse al Evento</ion-button>
+            <br>
+            <ion-button (click)="cerrarModal()" expand="block" color="danger">Cancelar</ion-button>
+          </div>
+        </ion-content>
+      }
   </ion-modal>
 
 </ion-content>

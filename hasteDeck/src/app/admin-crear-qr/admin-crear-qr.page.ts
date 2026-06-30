@@ -20,7 +20,7 @@ export class AdminCrearQrPage implements OnInit {
   urlCodigoQR: string | null = null;
   getName: string = ""; 
   getCorr: string = ""; 
-  id: string="";
+  id: string = "";
   
   
   constructor(
@@ -30,12 +30,12 @@ export class AdminCrearQrPage implements OnInit {
   }
 
   crearQR() {
-    const idLocal = this.globalData.ponerId(); 
+    const idLocal = this.globalData.globalId; 
 
     if (idLocal) {
+      console.log("ID recuperado desde GlobalData:", idLocal);
+      this.contactarQR(idLocal);
       this.id = idLocal;
-      console.log("ID recuperado desde GlobalData:", this.id);
-      this.contactarQR(this.id);
     } else {
       console.error("No se encontró ningún ID en GlobalData.");
     }

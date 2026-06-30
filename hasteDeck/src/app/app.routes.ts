@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'crear-perfil',
     pathMatch: 'full',
   },
   {
@@ -33,6 +33,22 @@ export const routes: Routes = [
   {
     path: 'crear-perfil',
     loadComponent: () => import('./crear-perfil/crear-perfil.page').then( m => m.CrearPerfilPage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'eventos-inscritos',
+    loadComponent: () => import('./eventos-inscritos/eventos-inscritos.page').then( m => m.EventosInscritosPage)
+  },
+  {
+    path: 'tus-eventos',
+    loadComponent: () => import('./tus-eventos/tus-eventos.page').then( m => m.TusEventosPage)
+  },
+  {
+    path: 'evento-presente',
+    loadComponent: () => import('./evento-presente/evento-presente.page').then( m => m.EventoPresentePage)
   },
 ];
 

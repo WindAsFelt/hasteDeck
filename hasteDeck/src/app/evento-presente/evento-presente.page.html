@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>evento-presente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+@if (esDuenno) {
+    
+    @if (!datosCombate) {
+      <ion-card>
+        <ion-card-content>
+          <h2>Configurar Partida</h2>
+          <p>Selecciona a los 2 jugadores y el tiempo límite.</p>
+          <ion-button expand="block" color="success">Iniciar Combate</ion-button>
+        </ion-card-content>
+      </ion-card>
+    } @else {
+      <ion-card>
+        <ion-card-content>
+          <h2>Panel de Control - {{ datosCombate.categoria }}</h2>
+          <p>Controla el temporizador y los puntos aquí.</p>
+          </ion-card-content>
+      </ion-card>
+    }
+
+  } @else {
+    
+    @if (!datosCombate) {
+      <div style="text-align: center; margin-top: 50px;">
+        <i class="fa-solid fa-hourglass-half" style="font-size: 3rem; color: gray;"></i>
+        <h3>Esperando al organizador...</h3>
+        <p>El dueño del evento está configurando la partida.</p>
+      </div>
+    } @else {
+      <ion-card>
+        <ion-card-content style="text-align: center;">
+          <h2>¡Combate en curso!</h2>
+          <h1 style="font-size: 3rem; color: var(--ion-color-danger);">
+            10:00 
+          </h1>
+          
+          <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+            <div>
+              <h3>{{ datosCombate.integrantes[0] }}</h3>
+              <h2>{{ datosCombate.puntajeA }}</h2>
+            </div>
+            <div><h2>VS</h2></div>
+            <div>
+              <h3>{{ datosCombate.integrantes[1] }}</h3>
+              <h2>{{ datosCombate.puntajeB }}</h2>
+            </div>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    }
+
+  }
+
+  
+</ion-content>
